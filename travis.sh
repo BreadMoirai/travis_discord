@@ -10,15 +10,22 @@ if [ ! -z "$TRAVIS_COMMIT" -a "$TRAVIS_COMMIT" != " " ]; then
 fi
 
 noun="failed"
-color="16711680"
+color="14370117" #brick_red #db4545
 if [ "$TRAVIS_TEST_RESULT" == "0" ]; then
   noun="succeeded"
-  color="1466533"
+  color="3779158" #turf_green #39AA56
 fi
 
-title="${TRAVIS_REPO_SLUG} Travis CI build #${TRAVIS_BUILD_NUMBER} **${noun}**"
+title="${TRAVIS_REPO_SLUG} build #${TRAVIS_BUILD_NUMBER} **${noun}**"
 
-res="{\"embeds\": [{\"title\": \"${title}\", \"color\": ${color}, \"description\": \"${des}\", \"url\": \"${BUILD_URL}/${TRAVIS_BUILD_ID}\""
+username="Travis CI"
+
+all_travis_logos=( TravisCI-Mascot-1 TravisCI-Mascot-2 TravisCI-Mascot-3 TravisCI-Mascot-4 TravisCI-Mascot-grey TravisCI-Mascot-blue TravisCI-Mascot-red TravisCI-Mascot-pride TravisCI-Mascot-pride-4 Tessa-1 Tessa-2 Tessa-3 Tessa-4 Tessa-pride Tessa-pride-4 )
+logo_idx=$[ RANDOM % 15 ]
+
+avatar_url="https://travis-ci.com/images/logos/${all_travis_logos[logo_idx]}.png"
+
+res="{\"username\": \"${username}\", \"avatar_url\": \"${avatar_url}\", \"embeds\": [{\"title\": \"${title}\", \"color\": ${color}, \"description\": \"${des}\", \"url\": \"${BUILD_URL}/${TRAVIS_BUILD_ID}\""
 
 fields=""
 if [ ! -z "$TRAVIS_BRANCH" -a "$TRAVIS_BRANCH" != " " ]; then
